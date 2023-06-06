@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose'); // mongoose를 가져온다.
 const userSchema = mongoose.Schema({
     name: {
         type: String,
