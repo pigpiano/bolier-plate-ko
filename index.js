@@ -15,7 +15,7 @@ mongoose.connect(config.mongoURI, {
     // 아래 내용을 써줘야 에러가 안난다.
     useNewUrlParser: true, useUnifiedTopology: true
 }).then (() => console.log("MongoBD Connected...")) // mongoDB의 connection string을 넣어준다.
-    .catch(err => console.log(err)) // 에러가 나면 에러를 출력해준다.c
+    .catch(err => console.log(err)) // 에러가 나면 에러를 출력해준다.
  
 
 app.get('/', (req, res) => { // '/' 경로로 들어오면
