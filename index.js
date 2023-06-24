@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser'); // cookie-parser를 가져온다.
 const bodyParser = require('body-parser'); // body-parser를 가져온다.
 const { User } = require("./models/User"); // User.js에서 export한 User를 가져온다.
 const config = require('./config/key'); // key.js에서 export한 config를 가져온다.
-const auth = require('./middleware/auth'); // auth.js에서 export한 auth를 가져온다.
+const { auth } = require('./middleware/auth'); // auth.js에서 export한 auth를 가져온다.
 
 // application/x-www-form-urlencoded 형식으로 된 데이터를 분석해서 가져올 수 있게 해준다.
 app.use(bodyParser.urlencoded({extended: true})); 
@@ -67,32 +67,32 @@ app.post('/api/users/login', (req, res) => { // '/login' 경로로 들어오면
         })
     })
 })
+// role 1 어드민, role 2 특정 부서 어드민
+// role 0 -> 일반유저, role 0이 아니면 관리자
+     app.get('/api/users/auth', auth, (req, res) => { // '/auth' 경로로 들어오면'
+    // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 True라는 말이다.
+    res.status(200).json({ // json 형식으로 status를 200으로 출력해준다.
+        _id: req.user._id, // req.user._id를 출력해준다.
+        isAdmin: req.user.role === 0 ? false : true, // role이 0이면 false, 아니면 true를 출력해준다.
+        isAuth: true, // isAuth를 true로 출력해준다.
+        email: req.user.email, // req.user.email를 출력해준다.
+        name: req.user.name, // req.user.name를 출력해준다.
+        lastname: req.user.lastname, // req.user.lastname를 출력해준다.
+        role: req.user.role, // req.user.role를 출력해준다.
+        image: req.user.image // req.user.image를 출력해준다.
 
-// app.get('/api/users/auth', auth , (req, res) => { // '/auth' 경로로 들어오면'
+})
+})
 
-//     // 여기까지 미들웨어를 통과해 왔다는 얘기는 Authentication이 True라는 말이다.
-//     res.status(200).json({ // json 형식으로 status를 200으로 출력해준다.
-//         _id: req.user._id, // req.user._id를 출력해준다.
-//         isAdmin: req.user.role === 0 ? false : true, // role이 0이면 false, 아니면 true를 출력해준다.
-//         isAuth: true, // isAuth를 true로 출력해준다.
-//         email: req.user.email, // req.user.email를 출력해준다.
-//         name: req.user.name, // req.user.name를 출력해준다.
-//         lastname: req.user.lastname, // req.user.lastname를 출력해준다.
-//         role: req.user.role, // req.user.role를 출력해준다.
-//         image: req.user.image // req.user.image를 출력해준다.
-
-// })
-// })
-
-// app.get('/api/users/logout', auth, (req, res) => { // '/logout' 경로로 들어오면
-//     User.findOneAndUpdate({ _id: req.user._id }, 
-//         {token: ""}, (err, user) => { // token을 지워준다.
-//             if(err) return res.json({ success: false, err }); // 에러가 있으면 에러를 출력해준다.
-//             return res.status(200).send({ // status를 200으로
-//                 success: true // success를 true로 출력해준다.
-//             })
-//         })
-//     })
+app.get('/api/users/logout', auth, (req, res) => { // '/logout' 경로로 들어오면
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+    .then(() => {
+      res.status(200).send({ success: true });
+    })
+    .catch(err => {
+      res.json({ success: false, err });
+    });
+    })
 
 
 app.listen(port, () => {

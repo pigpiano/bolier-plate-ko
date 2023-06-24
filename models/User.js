@@ -78,19 +78,24 @@ userSchema.methods.generateToken = function(cb) {
     });
 }
 
-userSchema.statics.findByToken = function(token, cb) {
-    var user = this; // userSchema를 가리킨다. es5 문법
-    // user._id + ''  = token // user._id를 string으로 바꿔준다.
-    // 토큰을 decode 한다.
-    jwt.verify(token, 'secretToken', function(err, decoded) { // token을 decode한다.
-        // 유저 아이디를 이용해서 유저를 찾은 다음에
-        // 클라이언트에서 가져온 token과 DB에 보관된 토큰이 일치하는지 확인한다.
-        user.findOne({"_id": decoded, "token": token}, function(err, user) { // userSchema를 찾는다.
-            if(err) return cb(err); // 에러가 나면 에러를 출력해준다.
-            cb(null, user) // 에러가 없으면 user를 보내준다.
-        })
-    })
-}
+userSchema.statics.findByToken = function(token) {
+    var user = this;
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, 'secretToken', (err, decoded) => {
+        if (err) {
+          reject(err);
+        } else {
+          user.findOne({ "_id": decoded, "token": token })
+            .then(user => {
+              resolve(user);
+            })
+            .catch(err => {
+              reject(err);
+            });
+        }
+      });
+    });
+  };
 
 const User = mongoose.model('User', userSchema) // 스키마를 모델로 감싸준다.
 module.exports = { User } // 다른 파일에서도 쓸 수 있게 export 해준다.
