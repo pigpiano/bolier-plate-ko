@@ -51,6 +51,7 @@ userSchema.pre('save', function( next ) { // userSchema에 정보를 저장하�
     }
 })
 
+// plainPassword와  암호화된 비밀번호가 같은지 확인해야됨
 userSchema.methods.comparePassword = function(plainPassword, cb) {
     // plainPassword 1234567 암호화된 비밀번호 $2b$10$yf8J3N5Q8PfJU4Y2t0v7xOzX3f0ZgE7s5Zc5XqY9H5s0K8KXZmY3i
     bcrypt.compare(plainPassword, this.password, function(err, isMatch) { // plainPassword를 암호화해서 비교한다.
@@ -82,6 +83,8 @@ userSchema.statics.findByToken = function(token) {
     var user = this;
     return new Promise((resolve, reject) => {
       jwt.verify(token, 'secretToken', (err, decoded) => {
+        // 유저 아이디를 이용해서 유저를 찾은 다음에
+        // 클라이언트에서 가져온 token과 DB에 보관된 토큰이 일치하는지 확인
         if (err) {
           reject(err);
         } else {

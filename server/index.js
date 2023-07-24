@@ -1,6 +1,6 @@
 const express = require('express') // import express
 const app = express() // create express app
-const port = 3000 
+const port = 4000 
 const cookieParser = require('cookie-parser'); // cookie-parser를 가져온다.
 const bodyParser = require('body-parser'); // body-parser를 가져온다.
 const { User } = require("./models/User"); // User.js에서 export한 User를 가져온다.
@@ -24,6 +24,10 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', (req, res) => { // '/' 경로로 들어오면
   res.send('Hello World! 반가워요! 감사해요!') // Hello World! 반가워요!를 출력해준다.
+})
+
+app.get('/api/hello', (req, res) => {
+    res.send("안녕하세요~")
 })
 
 app.post('/api/users/register', (req, res) => { // '/register' 경로로 들어오면
@@ -86,15 +90,19 @@ app.post('/api/users/login', (req, res) => { // '/login' 경로로 들어오면
 
 app.get('/api/users/logout', auth, (req, res) => { // '/logout' 경로로 들어오면
     User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
-    .then(() => {
-      res.status(200).send({ success: true });
+    .then(logout => {
+      return res.status(200).send({ success: true });
     })
     .catch(err => {
-      res.json({ success: false, err });
+      return res.json({ success: false, err });
     });
     })
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`) // port 3000에서 실행되고 있다.
+  console.log(`Example app listening on port ${port}`) // port 5000에서 실행되고 있다.
 })
+
+
+
+
