@@ -41,7 +41,7 @@ function LoginPage(props) {
                 if(response.payload.loginSuccess) {
                     navigate('/')
                 } else {
-                    alert('Error!!')
+                    alert('아이디와 패스워드를 입력하세요.')
                     console.log(response)
                 }
             })
@@ -56,19 +56,50 @@ function LoginPage(props) {
                 alignItems: 'center',
                 width: '100%',
                 height: '100vh',
+                backgroundColor: '#f0f0f0',
             }}
         >
+    <div
+        style={{
+          width: '300px',
+          padding: '20px',
+          backgroundColor: '#fff',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+          borderRadius: '5px',
+        }}
+      >
             <form style={{ display: 'flex', flexDirection: 'column' }} 
             onSubmit={onSubmitHandler}>
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Email</label>
+                <input type="email" style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={Email} onChange={onEmailHandler} />
 
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Password</label>
+                <input type="password" style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={Password} onChange={onPasswordHandler} />
                 <br />
 
-                <button type="submit">Login</button>
+                <button style={{
+              padding: '10px',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '16px',
+            }} type="submit">Login</button>
             </form>
+            </div>
         </div>
     );
 }

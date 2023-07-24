@@ -48,3 +48,5 @@ export default function Authentication(SpecificComponent, option, adminRoute = n
     return AuthenticationCheck
         
 }
+
+

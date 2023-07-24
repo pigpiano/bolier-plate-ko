@@ -61,24 +61,67 @@ const onSubmitHandler = (event) => {
                 alignItems: 'center',
                 width: '100%',
                 height: '100vh',
+                backgroundColor: '#f0f0f0',
             }}
         >
+            <div
+        style={{
+          width: '300px',
+          padding: '20px',
+          backgroundColor: '#fff',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+          borderRadius: '5px',
+        }}
+      >
             <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Email</label>
+                <input type="email"  style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={Email} onChange={onEmailHandler} />
                 
-                <label>Name</label>
-                <input type="text" value={Name} onChange={onNameHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Name</label>
+                <input type="text"  style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={Name} onChange={onNameHandler} />
 
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Password</label>
+                <input type="password"  style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={Password} onChange={onPasswordHandler} />
 
-                <label>Confirm Password</label>
-                <input type="password" value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
+                <label style={{ marginBottom: '5px', fontWeight: 'bold' }}>Confirm Password</label>
+                <input type="password"  style={{
+              padding: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '3px',
+              fontSize: '14px',
+            }} value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
                 <br />
 
-                <button type="submit">회원 가입</button>
+                <button type="submit" style={{
+              padding: '10px',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '16px',
+            }}>회원 가입</button>
             </form>
+            </div>
         </div>
   )
 }

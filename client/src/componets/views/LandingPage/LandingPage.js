@@ -28,16 +28,37 @@ function LandingPage() {
 
   return (
     <div style={ {display: 'flex', justifyContent: 'center', 
-    alignItems: 'center', width: '100%', height: '100vh'}}>
+    alignItems: 'center', 
+    width: '100%', height: '100vh',  backgroundColor: '#f0f0f0',}}
+    >
+       <div
+        style={{
+          width: '300px',
+          padding: '20px',
+          backgroundColor: '#fff',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+          borderRadius: '5px',
+        }}
+      >
 
-      <h2>
+      <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>
         시작 페이지
       </h2>
       <br />
 
-      <button onClick={onClickHandler}>
+      <button onClick={onClickHandler} style={{
+            width: '100%',
+            padding: '10px',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '3px',
+            cursor: 'pointer',
+            fontSize: '16px',
+          }}>
         로그아웃
       </button>
+      </div>
     </div>
   )
 }
